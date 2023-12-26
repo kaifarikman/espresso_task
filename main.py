@@ -1,19 +1,21 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5 import uic
+import db
 
 
-class Example(QWidget):
+class Application(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.initUI()
+        self.start()
 
-    def initUI(self):
-        self.setGeometry(300, 300, 300, 300)
-        self.setWindowTitle('Первая программа')
+    def start(self):
+        uic.loadUi('coffee.ui', self)
 
 
 if __name__ == '__main__':
+    db.start_session()
     app = QApplication(sys.argv)
-    ex = Example()
+    ex = Application()
     ex.show()
-    sys.exit(app.exec())
+    sys.exit(app.exec_())
