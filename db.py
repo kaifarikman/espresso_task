@@ -31,8 +31,8 @@ def get_all_coffee():
 def get_coffee_by_name(name_):
     with get_connection() as conn:
         cur = conn.cursor()
-        coffee_list = cur.execute('SELECT * FROM coffee WHERE name=?', (name_,))
-        return coffee_list
+        coffee_list = cur.execute('SELECT * FROM coffee WHERE name=?', (name_,)).fetchone()
+        return coffee_list if coffee_list else None
 
 
 def add_coffee(data_):
@@ -54,3 +54,6 @@ def edit_coffee(id_, data_):
             WHERE id={id_}''', data_[1:]
         )
         conn.commit()
+
+# add_coffee(('Капучино с мендальным молоком', '1000', 'молотый', 'вкусный', 1000, 200))
+# print(get_all_coffee())
